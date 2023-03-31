@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>Images/Main1.jpg</file>
+  </qresource>
+  <qresource prefix="MainPage">
+    <file>Images/Main2.jpg</file>
+  </qresource>
+</RCC>
