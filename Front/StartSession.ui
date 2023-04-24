@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/newPrefix/Images/StartSession.png);</string>
+   <string notr="true"/>
   </property>
   <property name="windowTitle">
    <string>DockWidget</string>
@@ -31,7 +31,8 @@
 background-image: url();
 border-radius: 15px;
 font-size: 12px;
-color: rgb(255, 252, 255)</string>
+color: rgb(255, 252, 255);
+font-weight: bold;</string>
     </property>
     <property name="text">
      <string>Record</string>
@@ -40,9 +41,9 @@ color: rgb(255, 252, 255)</string>
    <widget class="QLabel" name="RecordPart1_Txt">
     <property name="geometry">
      <rect>
-      <x>396</x>
-      <y>328</y>
-      <width>61</width>
+      <x>398</x>
+      <y>330</y>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
@@ -56,7 +57,7 @@ color: rgb(255, 252, 255)</string>
     <property name="styleSheet">
      <string notr="true">background-image: url();
 color:rgb(255, 252, 255);
-font-size: 10px;</string>
+font-size: 12px;</string>
     </property>
     <property name="text">
      <string>0:00/0:30</string>
@@ -71,11 +72,17 @@ font-size: 10px;</string>
    <widget class="QSlider" name="horizontalSlider">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>360</y>
+      <x>230</x>
+      <y>328</y>
       <width>160</width>
-      <height>22</height>
+      <height>20</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="styleSheet">
      <string notr="true">QSlider{background-image: url();}
@@ -132,6 +139,26 @@ QSlider::sub-page:horizontal {
      <enum>QSlider::NoTicks</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="background">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1024</width>
+      <height>576</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/newPrefix/Images/StartSession.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>background</zorder>
+   <zorder>RecordPart1_Btn</zorder>
+   <zorder>RecordPart1_Txt</zorder>
+   <zorder>horizontalSlider</zorder>
   </widget>
  </widget>
  <resources>

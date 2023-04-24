@@ -3,13 +3,12 @@ background-image: url();
 border-radius: 20px;
 font-size: 18px;
 color: rgb(255, 252, 255)
-
-
+font-weight: bold;
 
 
 background-color: rgb(214, 228, 240);
 border-radius: 20px;
 font-size: 18px;
 color: rgb(0, 0, 0)
-
+font-weight: bold;
 

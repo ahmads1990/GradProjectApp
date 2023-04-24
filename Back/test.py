@@ -10,7 +10,7 @@ from Pages.mainWindow import mainWindow
 from Pages.registerWindow import registerWindow
 from Pages.recordsPatientWindow import recordsPatientsWindow
 from Pages.recordsSessionWindow import recordsSessionWindow
-
+from Pages.startSessionWindow import startSessionWindow
 class AudioRecorderWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -49,6 +49,8 @@ if __name__ == '__main__':
     #x = mainWindow()
     #x = registerWindow()
     #x = recordsSessionWindow()
-    x = recordsSessionWindow()
+    #x = recordsSessionWindow()
+    x = startSessionWindow()
+    
     x.show()
     sys.exit(app.exec_())

@@ -12,9 +12,11 @@ class Recorder:
         self.channels = 1
         self.current_record_length = 0
         self.max_record_length = 30  # Maximum recording length in seconds
+        self.max_seconds = self.max_record_length %60
+        self.max_minutes = self.max_record_length //60 
         self.path = 'Audio/'
 
-    def start_recording(self, filename):
+    def start_recording(self, filename, label, sliderHandler):
         """
         Starts recording audio from the default input device and saves it to a WAV file.
         
@@ -35,13 +37,25 @@ class Recorder:
             frames_per_buffer=self.chunk)
         
         start = time.time()
-
+        self.minutes =0
+        self.seconds=0
         while self.is_recording:
             data = self.stream.read(self.chunk)
             self.frames.append(data)
 
             # Calcualte time elapsed from starting the record
             self.current_record_length = time.time() - start
+            self.minutes =int(self.current_record_length//60)
+            self.seconds= int(self.current_record_length%60)
+            
+            if(sliderHandler.value()< int(self.current_record_length)):
+                sliderHandler.setValue(int(self.current_record_length))
+                
+            # construct media player bar progress
+            labelTxt = str(self.minutes) + ":" + str(self.seconds).zfill(2) + \
+            '/'+ str(self.max_minutes) + ":" + str(self.max_seconds).zfill(2)
+            
+            label.setText(labelTxt)
             # Check duration if bigger allowed stop the recording
             if self.current_record_length >= self.max_record_length:
                 self.is_recording = False
@@ -59,6 +73,8 @@ class Recorder:
         wf.writeframes(b''.join(self.frames))
         wf.close() 
         
+        return
+    
     def stop_recording(self):
         """Stops the current recording."""
         self.is_recording = False
