@@ -1,7 +1,32 @@
 from PyQt5 import QtCore, QtGui, QtWidgets,uic
 from PyQt5.QtWidgets import QDockWidget, QApplication, QLabel, QTextEdit, QPushButton,QTableWidgetItem
+
 from AudioRecorder import Recorder
 import threading
+
+
+class mainWindow(QDockWidget):
+    def __init__(self, widgetManager):
+        super(mainWindow, self).__init__()
+        self.widgetManager = widgetManager
+        # load the ui file 
+        uic.loadUi("../Front/main.ui", self)
+        
+        # set background image
+        self.background.setStyleSheet(f"background-image: url(../Front/Images/Main.png);") 
+
+        # Assign functions
+        self.StartSession.clicked.connect(self.switchWindow)
+        
+    # change window   
+    def switchWindow(self):
+        newWindow = SessionWindow(widgetManager=self.widgetManager)
+        print(self.widgetManager.count())
+        self.widgetManager.addWidget(newWindow)
+        print(self.widgetManager.count())
+        self.widgetManager.setCurrentWidget(newWindow)
+        
+
 
 class SessionWindow(QDockWidget):
     def __init__(self,widgetManager):
@@ -18,7 +43,7 @@ class SessionWindow(QDockWidget):
         
         
         # load the ui file 
-        uic.loadUi("../Front/startSession.ui", self)
+        uic.loadUi("../Front/Session.ui", self)
         
         # set background image
         self.background.setStyleSheet(f"background-image: url(../Front/Images/StartSession.png);") 

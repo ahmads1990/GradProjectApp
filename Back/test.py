@@ -6,11 +6,8 @@ import threading
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
 from AudioRecorder import Recorder 
-from Pages.mainWindow import mainWindow
-from Pages.registerWindow import registerWindow
-from Pages.recordsPatientWindow import recordsPatientsWindow
-from Pages.recordsSessionWindow import recordsSessionWindow
-from Pages.startSessionWindow import startSessionWindow
+
+import Pages
 class AudioRecorderWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -50,7 +47,14 @@ if __name__ == '__main__':
     #x = registerWindow()
     #x = recordsSessionWindow()
     #x = recordsSessionWindow()
-    x = startSessionWindow()
+    widgetManager = QtWidgets.QStackedWidget()
+
+    x = Pages.mainWindow(widgetManager)
+    print(widgetManager.count())
+    widgetManager.addWidget(x)
+    print(widgetManager.count())
+    widgetManager.setCurrentWidget(x)
+    print("after")
     
-    x.show()
+    widgetManager.show()
     sys.exit(app.exec_())
