@@ -38,23 +38,22 @@ class AudioRecorderWindow(QWidget):
     
         
 
-    
+
+def changeWindow(widgetManager, newWindow):
+    print(widgetManager.count())
+    widgetManager.addWidget(newWindow)
+    print(widgetManager.count())
+    widgetManager.setCurrentWidget(newWindow)
+    print("Debug: added Window")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    #recorderi = AudioRecorderWindow()
-    #x = mainWindow()
-    #x = registerWindow()
-    #x = recordsSessionWindow()
-    #x = recordsSessionWindow()
+
     widgetManager = QtWidgets.QStackedWidget()
 
-    x = Pages.mainWindow(widgetManager)
-    print(widgetManager.count())
-    widgetManager.addWidget(x)
-    print(widgetManager.count())
-    widgetManager.setCurrentWidget(x)
-    print("after")
+    startWindow = Pages.mainWindow(widgetManager, changeWindow)
+
+    changeWindow(widgetManager,startWindow)
     
     widgetManager.show()
     sys.exit(app.exec_())
