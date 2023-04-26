@@ -45,7 +45,7 @@ color: rgb(255, 252, 255)
      <string>Record</string>
     </property>
    </widget>
-   <widget class="QLabel" name="RecordPart1_Txt">
+   <widget class="QLabel" name="RecordPart1_Bar_Label">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -162,7 +162,7 @@ QSlider::sub-page:horizontal {
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="RecordPart2_Txt">
+   <widget class="QLabel" name="RecordPart2_Bar_Label">
     <property name="geometry">
      <rect>
       <x>755</x>
@@ -306,7 +306,7 @@ color: rgb(255, 252, 255)</string>
      <string>End Session</string>
     </property>
    </widget>
-   <widget class="QLabel" name="RecordPart1_Label">
+   <widget class="QLabel" name="RecordPart1_ErrorMsg">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -324,7 +324,7 @@ font-size: 14px;
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="RecordPart2_Label">
+   <widget class="QLabel" name="RecordPart2_ErrorMsg">
     <property name="geometry">
      <rect>
       <x>580</x>
@@ -344,14 +344,14 @@ font-size: 14px;
    </widget>
    <zorder>background</zorder>
    <zorder>RecordPart1_Btn</zorder>
-   <zorder>RecordPart1_Txt</zorder>
+   <zorder>RecordPart1_Bar_Label</zorder>
    <zorder>RecordPart1_Slider</zorder>
-   <zorder>RecordPart2_Txt</zorder>
+   <zorder>RecordPart2_Bar_Label</zorder>
    <zorder>RecordPart2_Slider</zorder>
    <zorder>RecordPart2_Btn</zorder>
    <zorder>EndSession_btn</zorder>
-   <zorder>RecordPart1_Label</zorder>
-   <zorder>RecordPart2_Label</zorder>
+   <zorder>RecordPart1_ErrorMsg</zorder>
+   <zorder>RecordPart2_ErrorMsg</zorder>
   </widget>
  </widget>
  <resources>

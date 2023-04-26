@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
 from AudioRecorder import Recorder 
 
-import Pages
+from Pages.mainWindow import mainWindow
 class AudioRecorderWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     widgetManager = QtWidgets.QStackedWidget()
 
-    startWindow = Pages.mainWindow(widgetManager, changeWindow)
+    startWindow = mainWindow(widgetManager, changeWindow)
 
     changeWindow(widgetManager,startWindow)
     
