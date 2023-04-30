@@ -3,9 +3,10 @@ from PyQt5.QtWidgets import QDockWidget, QApplication, QLabel, QTextEdit, QPushB
 from Database.database import all_data_sessions
 
 class recordsSessionWindow(QDockWidget):
-    def __init__(self,):
+    def __init__(self, widgetManager, changeWindow):
         super(recordsSessionWindow, self).__init__()
-        
+        self.widgetManager = widgetManager
+        self.changeWindow = changeWindow        
         # load the ui file 
         uic.loadUi("../Front/recordsSession.ui", self)
         

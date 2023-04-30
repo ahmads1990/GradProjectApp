@@ -16,13 +16,12 @@ class Recorder:
         self.max_minutes = self.max_record_length //60 
         self.path = 'Audio/'
 
-    def start_recording(self, filename, label, sliderHandler):
+    def start_recording(self, path, label, sliderHandler):
         """
         Starts recording audio from the default input device and saves it to a WAV file.
         
         Args:
             path (str): The path where the output file will be saved.
-            filename (str): The name of the output file.
         """
         self.is_recording = True
         self.frames = []
@@ -66,7 +65,7 @@ class Recorder:
         self.audio.terminate()
         
         # Save the recorded audio to a WAV file
-        wf = wave.open(self.path + filename + ".wav", 'wb')
+        wf = wave.open(self.path + ".wav", 'wb')
         wf.setnchannels(self.channels)
         wf.setsampwidth(self.audio.get_sample_size(self.sample_format))
         wf.setframerate(self.sample_rate)

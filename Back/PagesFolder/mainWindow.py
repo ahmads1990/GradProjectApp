@@ -17,8 +17,21 @@ class mainWindow(QDockWidget):
 
         # Assign functions
         self.StartSession.clicked.connect(self.switchWindow)
+        
+        # Side
+        self.btn_main.clicked.connect(self.switchWindowToRegister)
+        self.btn_records_session.clicked.connect(self.switchWindowToRecordsSession)
+        self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
 
     # change window
-    def switchWindow(self):
+    def switchWindowToRegister(self):
+        newWindow = registerWindow(self.widgetManager, self.changeWindow)
+        self.changeWindow(self.widgetManager, newWindow)
+        
+    def switchWindowToRecordsSession(self):
+        newWindow = registerWindow(self.widgetManager, self.changeWindow)
+        self.changeWindow(self.widgetManager, newWindow)
+        
+    def switchWindowToRecordsPatient(self):
         newWindow = registerWindow(self.widgetManager, self.changeWindow)
         self.changeWindow(self.widgetManager, newWindow)

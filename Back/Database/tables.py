@@ -1,7 +1,7 @@
 import sqlite3
 
 #create database and connect
-db = sqlite3.connect("E:/year 4 term 2/GP/GradProjectApp-master/Database/GP.db")
+db = sqlite3.connect("GP.db")
 #setting cursor
 cr = db.cursor()
 
