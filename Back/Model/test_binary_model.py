@@ -15,7 +15,7 @@ def load_model():
     print("loaded model")
     return model
 
-def test_model(audio_path , model_path = "Models/iau_phrase 99\model.h5"):
+def test_model(model,audio_path , model_path = "Models/iau_phrase 99\model.h5"):
     input_test = prepar_input(audio_path)
     #model = load_model(model_path)
 

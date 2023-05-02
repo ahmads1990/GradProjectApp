@@ -1,9 +1,8 @@
-from PyQt5 import QtCore, QtGui, QtWidgets,uic
-from PyQt5.QtWidgets import QDockWidget, QApplication, QLabel, QTextEdit, QPushButton,QTableWidgetItem
-
+from PyQt5 import QtWidgets,uic
+from PyQt5.QtWidgets import QDockWidget, QApplication,QTableWidgetItem
 from AudioRecorder import Recorder
 import threading
-from Database.database import all_data_patients, all_data_sessions, insert_patient
+from Database.database import all_data_patients, all_data_sessions, insert_patient, insert_session
 
 class mainWindow(QDockWidget):
     def __init__(self, widgetManager, changeWindow):
@@ -26,6 +25,11 @@ class mainWindow(QDockWidget):
         self.btn_records_session.clicked.connect(self.switchWindowToRecordsSession)
         self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
 
+    # go to diangosed
+    def switchToResultsPage(self):
+        newWindow = recordsSessionWindow(self.widgetManager, self.changeWindow)
+        self.changeWindow(self.widgetManager, newWindow)
+        
     # change window
     def switchWindowToRegister(self):
         newWindow = registerWindow(self.widgetManager, self.changeWindow)
@@ -77,11 +81,9 @@ class registerWindow(QDockWidget):
         self.radbtn_female.setChecked(False)
         print("clear")
 
-    def startRecordSession(self):
-        
-        patientID = 0
-        
+    def startRecordSession(self):  
         # check all fields
+        self.patientID = self.txtEdit_ID.toPlainText()
         name = self.txtEdit_Name.toPlainText()
         email = self.txtEdit_Email.toPlainText()
         phone = self.txtEdit_Phone.toPlainText()
@@ -94,10 +96,10 @@ class registerWindow(QDockWidget):
         gender = "m" if self.radbtn_male.isChecked() else "f"
         
         # database
-        insert_patient(patientID, name, gender, phone, email)
+        insert_patient(self.patientID, name, age,gender, phone, email)
         
         # all good then start recording
-        newWindow = SessionWindow(self.widgetManager, self.changeWindow, patientID)
+        newWindow = SessionWindow(self.widgetManager, self.changeWindow, self.patientID)
         self.changeWindow(self.widgetManager, newWindow)
         
         print("Start recording")
@@ -166,9 +168,23 @@ class SessionWindow(QDockWidget):
 
     def switchWindow(self):
         #if self.part1_IsRecorded and self.part2_IsRecorded:
+        
+        part1_IsRecorded = ""
+        part2_IsRecorded = ""
+        if self.part1_IsRecorded:
+            part1_IsRecorded="DONE"
+        if self.part2_IsRecorded:
+            part2_IsRecorded="DONE"
+            
+        # finish recording
+        insert_session(self.patientID, "", "","", part1_IsRecorded, part2_IsRecorded)
         self.widgetManager.removeWidget(self)
-        self.widgetManager.removeWidget(int(self.widgetManager.count())-1)
-
+        print(f"removed widget and count is {self.widgetManager.count()}")
+        self.widgetManager.removeWidget(self.widgetManager.widget(int(self.widgetManager.count())-1))
+        print(f"removed widget and count is {self.widgetManager.count()}")
+        widget = self.widgetManager.widget(int(self.widgetManager.count())-1)
+        widget.switchToResultsPage()
+        
 class recordsPatientsWindow(QDockWidget):
     def __init__(self, widgetManager, changeWindow):
         super(recordsPatientsWindow, self).__init__()
@@ -200,11 +216,13 @@ class recordsPatientsWindow(QDockWidget):
         self.tableWidget.setRowCount(len(data))
         for patient in data:
             id = f'{patient[0]}'
+            age = f'{patient[2]}'
             self.tableWidget.setItem(row , 0 , QTableWidgetItem(id))
             self.tableWidget.setItem(row , 1 , QTableWidgetItem(patient[1]))
-            self.tableWidget.setItem(row , 2 , QTableWidgetItem(patient[2]))
-            self.tableWidget.setItem(row , 3 , QTableWidgetItem(patient[3]))
-            self.tableWidget.setItem(row , 4 , QTableWidgetItem(patient[4]))
+            self.tableWidget.setItem(row , 2 , QTableWidgetItem(age))
+            self.tableWidget.setItem(row , 3 , QTableWidgetItem(patient[2]))
+            self.tableWidget.setItem(row , 4 , QTableWidgetItem(patient[3]))
+            self.tableWidget.setItem(row , 5 , QTableWidgetItem(patient[4]))
             row=row+1
 
     # change window
