@@ -4,11 +4,20 @@ from AudioRecorder import Recorder
 import threading
 from Database.database import all_data_patients, all_data_sessions, insert_patient, insert_session
 
+class BaseWindow(QDockWidget):
+    def __init__(self):
+        super().__init__()
+        # load the ui file
+        uic.loadUi("../Front/main.ui", self)
+        
 class mainWindow(QDockWidget):
     def __init__(self, widgetManager, changeWindow):
         super(mainWindow, self).__init__()
         self.widgetManager = widgetManager
         self.changeWindow = changeWindow
+        
+        #temp
+        self.audioPath = "/Back/Audio/105-iau.wav"
         # load the ui file
         uic.loadUi("../Front/main.ui", self)
 
@@ -29,6 +38,8 @@ class mainWindow(QDockWidget):
     def switchToResultsPage(self):
         newWindow = recordsSessionWindow(self.widgetManager, self.changeWindow)
         self.changeWindow(self.widgetManager, newWindow)
+        global model
+        model.test_model(self.audioPath)
         
     # change window
     def switchWindowToRegister(self):
@@ -93,8 +104,13 @@ class registerWindow(QDockWidget):
         if self.radbtn_male.isChecked() and self.radbtn_female.isChecked():
             return
 
+        gender = ""
         gender = "m" if self.radbtn_male.isChecked() else "f"
         
+        if name=="" or email==""or phone==""or phone==""or age=="" or gender == "":
+            print("Enter data")
+            self.msg_Error.setText("Enter data")
+            return
         # database
         insert_patient(self.patientID, name, age,gender, phone, email)
         

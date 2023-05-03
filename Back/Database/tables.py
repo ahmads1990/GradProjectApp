@@ -1,12 +1,24 @@
 import sqlite3
 
-# Create database and connect
-db = sqlite3.connect("./GP.db")
+def connection():
+    # Create database and connect
+    import os
+    print(os.getcwd())
+    db = sqlite3.connect("Database/GP.db")
+    return db
 
-# Setting cursor
-cr = db.cursor()
+def getCursor(db):
+    return db.cursor()
 
-def init():
+# Save and close data
+def save_close(db):
+    db.commit()
+    db.close()
+
+def save(db):
+    return db.commit()
+
+def init(db, cr):
     # Create patients Table
     db.execute('PRAGMA foreign_keys = ON')
     cr.execute(
@@ -35,17 +47,4 @@ def init():
     )
 
 
-# Save and close data
-def save_close():
-    db = sqlite3.connect("./GP.db")
-    db.commit()
-    db.close()
 
-
-def connection():
-    db = sqlite3.connect("./GP.db")
-    return db.cursor()
-
-
-def save():
-    return db.commit()

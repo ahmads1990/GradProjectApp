@@ -1,12 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets,uic
 from PyQt5.QtWidgets import QDockWidget, QApplication, QLabel, QTextEdit, QPushButton,QTableWidgetItem
-from Database.database import all_data_sessions
+#from Database.database import all_data_sessions
 
 class recordsSessionWindow(QDockWidget):
-    def __init__(self, widgetManager, changeWindow):
+    def __init__(self, widgetManager, databaseHandler):
         super(recordsSessionWindow, self).__init__()
-        self.widgetManager = widgetManager
-        self.changeWindow = changeWindow        
+        self.widgetManager = widgetManager   
+        self.databaseHandler = databaseHandler
+        
         # load the ui file 
         uic.loadUi("../Front/recordsSession.ui", self)
         
@@ -15,16 +16,18 @@ class recordsSessionWindow(QDockWidget):
         self.tableWidget.setColumnWidth(0, 70)
         self.tableWidget.setColumnWidth(1, 70)
         self.tableWidget.setColumnWidth(3, 90)
-        # self.tableWidget.setColumnWidth(1, 150)
         self.tableWidget.setColumnWidth(2, 300)
-        # self.tableWidget.setColumnWidth(3, 140)
-        # self.tableWidget.setColumnWidth(4, 240)
 
         self.load_data()
+        
+        # Side
+        self.btn_main.clicked.connect(self.switchWindowToMain)
+        self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
 
+    
     def load_data(self):
-        data = all_data_sessions()
-        print(data)
+        data = self.databaseHandler.all_data_sessions()
+        #print(data)
         row = 0
         self.tableWidget.setRowCount(len(data))
         for session in data:
@@ -40,11 +43,10 @@ class recordsSessionWindow(QDockWidget):
             self.tableWidget.setItem(row, 5, QTableWidgetItem(session[4]))
             self.tableWidget.setItem(row, 6, QTableWidgetItem(session[4]))
             row = row + 1
-
-        # Assign functions
-        #self.StartSession.clicked.connect(self.clicker)
-        
-    # change window   
-    def clicker(self):
-        #widget.setCurrentWidget(MainWindow)
-        print("main")
+    
+    # change window
+    def switchWindowToMain(self):
+        self.widgetManager.GoToMain()
+    
+    def switchWindowToRecordsPatient(self):
+        self.widgetManager.GoToRecordsPatients()

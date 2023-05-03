@@ -1,37 +1,34 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
-
-from Pages import mainWindow
-from Model import test_binary_model
 import threading
+from WindowManager import WindowManager, PagesNumbers
+from ModelHandler import ModelHandler
+from Database.DatabaseHandler import DatabaseHandler
 
-def changeWindow(widgetManager, newWindow):
-    print(widgetManager.count())
-    widgetManager.addWidget(newWindow)
-    print(widgetManager.count())
-    widgetManager.setCurrentWidget(newWindow)
-    print("Debug: added Window")
+from PagesFolder.mainWindow import mainWindow
+from PagesFolder.registerWindow import registerWindow
+from PagesFolder.startSessionWindow import SessionWindow
+from PagesFolder.recordsPatientWindow import recordsPatientsWindow
+from PagesFolder.recordsSessionWindow import recordsSessionWindow
+from PagesFolder.resultWindow import resultWindow
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
+    databaseHandler = DatabaseHandler()
     
-    widgetManager = QtWidgets.QStackedWidget()
-
-    startWindow = mainWindow(widgetManager, changeWindow)
-    changeWindow(widgetManager,startWindow)
+    modelHandler = ModelHandler()
+    #modelHandler.loadModel()
+    #modelHandler.modelPredict(0)
     
-    widgetManager.show()
-    
-    print("path: ")
-    print(test_binary_model.path)
-    # load model
-    model = threading.Thread(
-                target=test_binary_model.load_model,
-                args=(
-                    #test_binary_model.path
-                ),
-            ).start()
+    windowManager = WindowManager()
+    windowManager.AddWindow(mainWindow(windowManager), PagesNumbers.main)
+    windowManager.AddWindow(registerWindow(windowManager,databaseHandler), PagesNumbers.register)
+    windowManager.AddWindow(SessionWindow(windowManager,databaseHandler), PagesNumbers.session)
+    windowManager.AddWindow(recordsPatientsWindow(windowManager,databaseHandler), PagesNumbers.recordsPatient)
+    windowManager.AddWindow(recordsSessionWindow(windowManager,databaseHandler), PagesNumbers.recordsSession)
+    windowManager.AddWindow(resultWindow(windowManager,0), PagesNumbers.results)
+    windowManager.ShowWidget()
     
     sys.exit(app.exec_())

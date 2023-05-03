@@ -66,7 +66,7 @@ class Recorder:
         self.audio.terminate()
         
         # Save the recorded audio to a WAV file
-        wf = wave.open(self.recordPath + ".wav", 'wb')
+        wf = wave.open("Audio/"+self.recordPath + ".wav", 'wb')
         wf.setnchannels(self.channels)
         wf.setsampwidth(self.audio.get_sample_size(self.sample_format))
         wf.setframerate(self.sample_rate)
