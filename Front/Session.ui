@@ -156,7 +156,7 @@ QSlider::sub-page:horizontal {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/newPrefix/Images/StartSession.png);</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>

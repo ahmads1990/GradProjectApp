@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>1024</width>
-    <height>576</height>
+    <height>598</height>
    </size>
   </property>
   <property name="styleSheet">
@@ -30,7 +30,7 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <property name="styleSheet">
-    <string notr="true">background-image: url(:/newPrefix/Images/Main.png);</string>
+    <string notr="true"/>
    </property>
    <widget class="QPushButton" name="StartSession">
     <property name="geometry">
