@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     databaseHandler = DatabaseHandler()
     
-    modelHandler = ModelHandler()
+    #modelHandler = ModelHandler()
     #modelHandler.loadModel()
     #modelHandler.modelPredict(0)
     

@@ -72,5 +72,5 @@ class WindowManager():
     
     def GoToRecordsPathology(self):
         index = self.dict[PagesNumbers.recordsPathology]
-        self.widgetManager.widget(index).load_data()
+        #self.widgetManager.widget(index).load_data()
         self.widgetManager.setCurrentIndex(index)

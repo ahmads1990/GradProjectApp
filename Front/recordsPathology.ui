@@ -132,46 +132,6 @@ font-weight: bold;</string>
      </size>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>505</x>
-      <y>91</y>
-      <width>441</width>
-      <height>401</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>ID</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Name</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Age</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Gender</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Phone</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Email</string>
-     </property>
-    </column>
-   </widget>
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
@@ -272,8 +232,8 @@ Height:40px</string>
    <widget class="QPushButton" name="btn_records_patient">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>500</y>
+      <x>18</x>
+      <y>350</y>
       <width>180</width>
       <height>40</height>
      </rect>
@@ -299,6 +259,19 @@ font-weight: bold;</string>
       <width>30</width>
       <height>30</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pathologyLabel">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>80</y>
+      <width>431</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

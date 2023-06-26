@@ -35,7 +35,7 @@ class resultWindow(QDockWidget):
             ).start()
         print(self.model)
         """
-        self.model = load_model(path = "./Model/Models/iau_phrase 99/model.h5")
+        #self.model = load_model(path = "./Model/Models/iau_phrase 99/model.h5")
         
     def addModel(self):
         """
