@@ -8,7 +8,8 @@ class PagesNumbers(Enum):
     session=2
     recordsSession=3
     recordsPatient=4
-    results=5
+    recordsPathology=5
+    results=6
     
 class WindowManager():
     def __init__(self):
@@ -66,5 +67,10 @@ class WindowManager():
         
     def GoToRecordsPatients(self):
         index = self.dict[PagesNumbers.recordsPatient]
+        self.widgetManager.widget(index).load_data()
+        self.widgetManager.setCurrentIndex(index)
+    
+    def GoToRecordsPathology(self):
+        index = self.dict[PagesNumbers.recordsPathology]
         self.widgetManager.widget(index).load_data()
         self.widgetManager.setCurrentIndex(index)

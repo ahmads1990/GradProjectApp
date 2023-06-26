@@ -22,11 +22,10 @@ class mainWindow(QDockWidget):
         #self.btn_main.clicked.connect(self.switchWindowToRegister)
         self.btn_records_session.clicked.connect(self.switchWindowToRecordsSession)
         self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
-         
+        self.btn_records_pathology.clicked.connect(self.switchWindowToRecordsPathology)
 
     # change window
     def switchWindowToRegister(self):
-   
         self.windowManager.GoToRegister()
         
     """
@@ -44,5 +43,7 @@ class mainWindow(QDockWidget):
         
     def switchWindowToRecordsPatient(self):
         self.windowManager.GoToRecordsPatients()
-        
+    
+    def switchWindowToRecordsPathology(self):
+        self.windowManager.GoToRecordsPathology()
     

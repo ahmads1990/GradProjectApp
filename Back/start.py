@@ -12,6 +12,7 @@ from PagesFolder.startSessionWindow import SessionWindow
 from PagesFolder.recordsPatientWindow import recordsPatientsWindow
 from PagesFolder.recordsSessionWindow import recordsSessionWindow
 from PagesFolder.resultWindow import resultWindow
+from PagesFolder.recordsPathologyWindow import recordsPathologyWindow
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -28,6 +29,7 @@ if __name__ == '__main__':
     windowManager.AddWindow(SessionWindow(windowManager,databaseHandler), PagesNumbers.session)
     windowManager.AddWindow(recordsPatientsWindow(windowManager,databaseHandler), PagesNumbers.recordsPatient)
     windowManager.AddWindow(recordsSessionWindow(windowManager,databaseHandler), PagesNumbers.recordsSession)
+    windowManager.AddWindow(recordsPathologyWindow(windowManager,databaseHandler), PagesNumbers.recordsPathology)
     windowManager.AddWindow(resultWindow(windowManager,0), PagesNumbers.results)
     windowManager.ShowWidget()
     

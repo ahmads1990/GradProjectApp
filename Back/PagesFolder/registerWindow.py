@@ -50,11 +50,13 @@ class registerWindow(QDockWidget):
             age = self.txtEdit_Age.toPlainText()
         except:
             self.msg_Error.setText("Enter Age Correctly")
-            
+         
+        """   
         try: 
             patientID = int(self.txtEdit_ID.toPlainText())
         except:
             self.msg_Error.setText("Enter ID Correctly")
+        
             
         # Todo: add more validation
         if self.radbtn_male.isChecked() and self.radbtn_female.isChecked():
@@ -78,6 +80,7 @@ class registerWindow(QDockWidget):
             print("ID repeated")
             self.msg_Error.setText("ID repeated")
             return
+        """
         # all good then start recording
         self.windowManager.ReturnStartSession(patientID)
         self.windowManager.GoToStartSession()
