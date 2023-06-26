@@ -11,15 +11,11 @@ class mainWindow(QDockWidget):
         uic.loadUi("../Front/main.ui", self)
 
         # set background image
-        self.background.setStyleSheet(
-            f"background-image: url(../Front/Images/Main.png);"
-        )
+        self.background.setStyleSheet(f"background-image: url(../Front/Images/Main.png);")
         
         # Assign functions
         self.StartSession.clicked.connect(self.switchWindowToRegister)
-        
         # Side
-        #self.btn_main.clicked.connect(self.switchWindowToRegister)
         self.btn_records_session.clicked.connect(self.switchWindowToRecordsSession)
         self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
         self.btn_records_pathology.clicked.connect(self.switchWindowToRecordsPathology)
@@ -27,17 +23,8 @@ class mainWindow(QDockWidget):
     # change window
     def switchWindowToRegister(self):
         self.windowManager.GoToRegister()
+        #self.windowManager.GoToResults()
         
-    """
-    # go to diangosed
-    def switchToResultsPage(self):
-        newWindow = recordsSessionWindow(self.widgetManager, self.changeWindow)
-        self.changeWindow(self.widgetManager, newWindow)
-        global model
-        model.test_model(self.audioPath)
-        
-    
-    """
     def switchWindowToRecordsSession(self):
         self.windowManager.GoToRecordsSession()
         

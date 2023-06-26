@@ -26,17 +26,20 @@ class resultWindow(QDockWidget):
         self.path = "./Model/Models/iau_phrase 99/model.h5"
         self.audioPath = "Audio/105-iau.wav"
         
-        """
+        
         self.model = threading.Thread(
                 target= keras.models.load_model,
                 args=(
                     self.path,
                 ),
             ).start()
+        print("//////////////////////////////////////////////")
         print(self.model)
-        """
-        #self.model = load_model(path = "./Model/Models/iau_phrase 99/model.h5")
         
+        #self.model = load_model(path = "./Model/Models/iau_phrase 99/model.h5")
+    
+    def testMe(self):
+        print(self.model)
     def addModel(self):
         """
         self.modelHandler = ModelHandler()

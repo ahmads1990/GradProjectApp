@@ -23,32 +23,31 @@ class WindowManager():
         self.widgetManager.show()
         
     def AddWindow(self,newWindow, pageEnum):
-        print(f"Debug: Widgets Count Before is {self.widgetManager.count()}")
+        #print(f"Debug: Widgets Count Before is {self.widgetManager.count()}")
         self.widgetManager.addWidget(newWindow)
-
         self.dict.update({pageEnum: self.count})
         self.count += 1
         
-        print(f"Debug: Widgets Count After is {self.widgetManager.count()}")
-        
-        print(f"Debug: Added new window {pageEnum}")
+        #print(f"Debug: Widgets Count After is {self.widgetManager.count()}")
+        #print(f"Debug: Added new window {pageEnum}")
     
     def GoToMain(self):
         index = self.dict[PagesNumbers.main]
         self.widgetManager.setCurrentIndex(index)
     
-    def GoToResults(self):
-        
+    def GoToResults(self): 
         index = self.dict[PagesNumbers.results]
+        self.widgetManager.widget(index).testMe()
         self.widgetManager.widget(index).addModel()
         
         
         self.widgetManager.widget(index).startModel()
+        
         self.widgetManager.setCurrentIndex(index)
         
     def GoToRegister(self):
         index = self.dict[PagesNumbers.register]
-        self.widgetManager.widget(index).clearSesssion()
+        self.widgetManager.widget(index).clearSession()
         self.widgetManager.setCurrentIndex(index)
     
     def GoToStartSession(self):

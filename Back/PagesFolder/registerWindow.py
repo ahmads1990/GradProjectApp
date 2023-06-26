@@ -12,13 +12,12 @@ class registerWindow(QDockWidget):
         uic.loadUi("../Front/register.ui", self)
 
         # set background image
-        self.background.setStyleSheet(
-            f"background-image: url(../Front/Images/Register.png);"
-        )
-        self.clearSesssion()
+        self.background.setStyleSheet(f"background-image: url(../Front/Images/Register.png);")
+        
+        self.clearSession()
         # Assign functions
         self.btn_Cancel.clicked.connect(self.cancelSession)
-        self.btn_Clear.clicked.connect(self.clearSesssion)
+        self.btn_Clear.clicked.connect(self.clearSession)
         self.btn_StartRecord.clicked.connect(self.startRecordSession)
 
     # change window go back to the main window
@@ -28,7 +27,7 @@ class registerWindow(QDockWidget):
         print("-- go back to main")
         
     # clear all the input fields
-    def clearSesssion(self):
+    def clearSession(self):
         self.txtEdit_Name.clear()
         self.txtEdit_Email.clear()
         self.txtEdit_Phone.clear()
@@ -36,40 +35,45 @@ class registerWindow(QDockWidget):
         self.txtEdit_ID.clear()
         self.radbtn_male.setChecked(False)
         self.radbtn_female.setChecked(False)
+        self.msg_Error.clear()
 
     def startRecordSession(self):  
         # check all fields     
-       
-        patientID=0   
+        patientID = 0   
         name = self.txtEdit_Name.toPlainText()
         email = self.txtEdit_Email.toPlainText()
         phone = self.txtEdit_Phone.toPlainText()
         age = 0
         
+        # try get age
         try: 
-            age = self.txtEdit_Age.toPlainText()
+            age = int(self.txtEdit_Age.toPlainText())
         except:
             self.msg_Error.setText("Enter Age Correctly")
-         
-        """   
+            
+        if(age < 10 & age >90):
+            self.msg_Error.setText("Enter Age Between (10~90)")
+            return
+        
+        # try get id
         try: 
             patientID = int(self.txtEdit_ID.toPlainText())
         except:
-            self.msg_Error.setText("Enter ID Correctly")
+            self.msg_Error.setText("Enter ID Correctly A Number")
         
-            
-        # Todo: add more validation
-        if self.radbtn_male.isChecked() and self.radbtn_female.isChecked():
-            return
-        if not self.radbtn_male.isChecked() and not self.radbtn_female.isChecked():
+        # get gender
+        if (self.radbtn_male.isChecked() and self.radbtn_female.isChecked()) or \
+            (not self.radbtn_male.isChecked() and not self.radbtn_female.isChecked()):
+            self.msg_Error.setText("Must check one gender")
             return
         
         gender = ""
         gender = "m" if self.radbtn_male.isChecked() else "f"
         
+        # if no fields are checked
         if name=="" or email==""or phone==""or phone==""or age=="" or gender == "":
-            print("Enter data Correctly")
-            self.msg_Error.setText("Enter data Correctly")
+            #print("Enter missing data Correctly")
+            self.msg_Error.setText("Enter missing data !!")
             return
         
         # database
@@ -77,11 +81,13 @@ class registerWindow(QDockWidget):
         try:
             self.databaseHandler.insert_patient(newPatient)
         except:
+            # update instead
             print("ID repeated")
             self.msg_Error.setText("ID repeated")
             return
-        """
+        
         # all good then start recording
+        self.msg_Error.clear()
         self.windowManager.ReturnStartSession(patientID)
         self.windowManager.GoToStartSession()
         
