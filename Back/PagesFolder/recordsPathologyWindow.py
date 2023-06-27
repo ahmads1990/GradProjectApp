@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets,uic
 from PyQt5.QtWidgets import QDockWidget,QTableWidgetItem, QScrollArea, QWidget, QVBoxLayout, QPushButton
 from PyQt5.QtCore import Qt
-
+from PyQt5.QtGui import QFont
 #from Database.database import all_data_sessions
 
 class recordsPathologyWindow(QDockWidget):
@@ -10,8 +10,13 @@ class recordsPathologyWindow(QDockWidget):
         self.widgetManager = widgetManager   
         self.databaseHandler = databaseHandler
         
+        self.document = {0: ['Healthy', 'They are fortunate to have healthy vocal cords, which allow their voice to effortlessly connect and resonate with clarity and strength. They value their vocal health and confidently express their emotions, captivating audiences with ease. Their smooth and soothing tone leaves a lasting impression, as they wholeheartedly embrace the joy of vocal expression and share their talents with the world.'],
+                        1: ['Rekurrensparese', 'Vocal cord paralysis can be caused by a virus or inflammatory disease, thyroid cancer or other tumors, or it can be a side effect of a neurologic disease'],
+                        2: ['Psychogene Dysphonia', 'A psychological trauma or other emotional issue may cause psychogenic voice disorders. In some cases, adolescent males or females resist the eventual lowering of the voice that comes with adulthood, causing a voice problem.']}
         # load the ui file 
         uic.loadUi("../Front/recordsPathology.ui", self)
+        self.pathologyLabel.setReadOnly(True)
+        self.pathologyLabel.setFont(QFont('Arial', 15))
         
         # set background image
         self.background.setStyleSheet(f"background-image: url(../Front/Images/ShowDisorders.png);")
@@ -49,12 +54,12 @@ class recordsPathologyWindow(QDockWidget):
 
         # Create and add multiple buttons to the layout
         buttons = []
-        for i in range(10):
-            button = self.returnButton(f"Button {i}")
+        for i in range(3):
+            button = self.returnButton(f"{self.document[i][0]}")
             buttons.append(button)
             self.layout.addWidget(button)
             #buttons[i].clicked.connect(lambda: self.setLabel(i))
-            button.clicked.connect(self.createButtonClickedCallback(i))
+            button.clicked.connect(self.createButtonClickedCallback(self.document[i][1]))
 
         # Set the widget as the content of the scroll area
         self.scroll_area.setWidget(self.widget)
