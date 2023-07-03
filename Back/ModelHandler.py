@@ -8,7 +8,7 @@ class ModelHandler:
     def __init__(self):
         self.modelPath = "Model/Models/iau_phrase 99/model.h5"
         self.audioPath = "Audio/105-iau.wav"
-        self.isModelLoaded = asyncio.Event()
+        self.isModelLoaded = False
         self.model = None
         
     def loadModel(self):
@@ -19,10 +19,11 @@ class ModelHandler:
             future = executor.submit(keras.models.load_model, self.modelPath)
             self.model = future.result()
 
+        self.isModelLoaded = True
         print("Keras model loaded successfully!")
         
     def modelPredict(self, sessionID):     
-        if self.model is None:
+        if not self.isModelLoaded:
             print("Error: Model not loaded!")
             return
         

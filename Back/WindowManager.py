@@ -34,16 +34,6 @@ class WindowManager():
     def GoToMain(self):
         index = self.dict[PagesNumbers.main]
         self.widgetManager.setCurrentIndex(index)
-    
-    def GoToResults(self): 
-        index = self.dict[PagesNumbers.results]
-        self.widgetManager.widget(index).testMe()
-        self.widgetManager.widget(index).addModel()
-        
-        
-        self.widgetManager.widget(index).startModel()
-        
-        self.widgetManager.setCurrentIndex(index)
         
     def GoToRegister(self):
         index = self.dict[PagesNumbers.register]
@@ -59,6 +49,12 @@ class WindowManager():
         window = self.widgetManager.widget(index)
         window.setPatientID(patientID)
     
+    def GoToResults(self, sessionDto): 
+        index = self.dict[PagesNumbers.results]       
+        self.widgetManager.widget(index).setSessionDto(sessionDto)
+        self.widgetManager.widget(index).sendToModelPredict()
+        self.widgetManager.setCurrentIndex(index)
+
     def GoToRecordsSession(self):
         index = self.dict[PagesNumbers.recordsSession]
         self.widgetManager.widget(index).load_data()

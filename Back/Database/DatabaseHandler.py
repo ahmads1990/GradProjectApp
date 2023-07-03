@@ -17,9 +17,22 @@ class DatabaseHandler():
 
     def insert_session(self, session):
         cr = getCursor(self.db)
-        cr.execute(f"INSERT INTO sessions (patient_id, audio_path, pathology_id, doctor_diagnoses, Letters, Phrase)\
-                VALUES ({session.patient_id}, '{session.audio_path}', '{session.pathology_id}', '{session.doctor_diagnoses}', '{session.letters}', '{session.phrase}')")
+        cr.execute(
+        f"""
+        INSERT INTO sessions (patient_id, audio_path, pathology_id, doctor_diagnoses, Letters, Phrase)
+        VALUES (
+            {session.patient_id},
+            '{session.audio_path}',
+            {session.pathology_id},
+            '{session.doctor_diagnoses}',
+            {int(session.letters)},
+            {int(session.phrase)}
+        );
+        """)
         save(self.db)
+        
+        last_inserted_id = cr.lastrowid  # Retrieve the newly created primary key
+        return last_inserted_id
 
 
     def insert_pathology(self, id, description, name, type):

@@ -6,12 +6,14 @@ import threading
 import keras
 
 class resultWindow(QDockWidget):
-    def __init__(self, windowManager, patientID):
+    def __init__(self, windowManager, modelHandler):
         super(resultWindow, self).__init__()
         self.windowManager = windowManager
-        self.modelHandler = None
-        
-        
+        self.modelHandler = modelHandler
+
+        self.sessionDto = None
+        self.audioPath = "Audio/105-iau.wav"
+
         # load the ui file
         uic.loadUi("../Front/result.ui", self)
         
@@ -22,43 +24,22 @@ class resultWindow(QDockWidget):
         
         # Assign functions
         self.GoBack.clicked.connect(self.switchWindowToMain)
+
+    def setSessionDto(self, sessionDto):
+        self.sessionDto = sessionDto
         
-        self.path = "./Model/Models/iau_phrase 99/model.h5"
-        self.audioPath = "Audio/105-iau.wav"
-        
-        
-        self.model = threading.Thread(
-                target= keras.models.load_model,
-                args=(
-                    self.path,
-                ),
-            ).start()
-        print("//////////////////////////////////////////////")
-        print(self.model)
-        
-        #self.model = load_model(path = "./Model/Models/iau_phrase 99/model.h5")
-    
-    def testMe(self):
-        print(self.model)
-    def addModel(self):
-        """
-        self.modelHandler = ModelHandler()
-        self.modelHandler.loadModel()
-        """
-        
-    def startModel(self):
-        
+    def sendToModelPredict(self):
         print("-------------------")
-        print(self.model)
-        self.result = test_model(self.model, self.audioPath)
+        print(self.modelHandler.model)
+
+        self.result = self.modelHandler.modelPredict(self.sessionDto)
         if(self.result == "pathology"):
             self.background.setStyleSheet(
-            f"background-image: url(../Front/Images/ResultsPathology.png);"
-            )
+            f"background-image: url(../Front/Images/ResultsPathology.png);")
         else:
             self.background.setStyleSheet(
-            f"background-image: url(../Front/Images/ResultsHealthy.png);"
-            )
+            f"background-image: url(../Front/Images/ResultsHealthy.png);")
+
     # change window
     def switchWindowToMain(self):
         self.widgetManager.GoToMain()

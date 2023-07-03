@@ -70,11 +70,8 @@ class SessionWindow(QDockWidget):
         self.part2_IsRecorded = not self.part2_IsRecorded
 
     def endRecordSession(self):
-        if self.part1_IsRecorded and self.part2_IsRecorded:  
-            part1_IsRecorded = "Done"
-            part2_IsRecorded = "Done"       
-            # finish recording
-            newSession = Session(self.patientID, "", 0,"",part1_IsRecorded , part2_IsRecorded)
-            
-            self.databaseHandler.insert_session(newSession)      
-            self.widgetManager.GoToResults()
+        # finish recording
+        newSession = Session(self.patientID, "", -1,"",self.part1_IsRecorded , self.part2_IsRecorded)
+        
+        sessionId = self.databaseHandler.insert_session(newSession)      
+        self.widgetManager.GoToResults()

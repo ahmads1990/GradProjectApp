@@ -21,7 +21,7 @@ if __name__ == '__main__':
     
     modelHandler = ModelHandler()
     modelHandler.loadModel()
-    modelHandler.modelPredict(0)
+    #modelHandler.modelPredict(0)
     
     windowManager = WindowManager()
     windowManager.AddWindow(mainWindow(windowManager), PagesNumbers.main)
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     windowManager.AddWindow(recordsPatientsWindow(windowManager,databaseHandler), PagesNumbers.recordsPatient)
     windowManager.AddWindow(recordsSessionWindow(windowManager,databaseHandler), PagesNumbers.recordsSession)
     windowManager.AddWindow(recordsPathologyWindow(windowManager,databaseHandler), PagesNumbers.recordsPathology)
-    windowManager.AddWindow(resultWindow(windowManager,0), PagesNumbers.results)
+    windowManager.AddWindow(resultWindow(windowManager,modelHandler), PagesNumbers.results)
     windowManager.ShowWidget()
     
     sys.exit(app.exec_())

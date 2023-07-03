@@ -22,28 +22,43 @@ def init(db, cr):
     # Create patients Table
     db.execute('PRAGMA foreign_keys = ON')
     cr.execute(
-        '''
+        """
         CREATE TABLE IF NOT EXISTS patients 
-        (id INTEGER PRIMARY KEY , name TEXT,age INTEGER ,gender TEXT , phone_number TEXT , email TEXT)
-        ''')
-
+        (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            age INTEGER,
+            gender TEXT,
+            phone_number TEXT,
+            email TEXT
+        );
+        """
+    )
     # Create sessions Table
     cr.execute(
         """
         CREATE TABLE IF NOT EXISTS sessions 
-        (patient_id INTEGER NOT NULL REFERENCES patients(id),
-        session_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        audio_path TEXT,
-        pathology_id INTEGER,
-        doctor_diagnoses TEXT,
-        Letters TEXT,
-        Phrase TEXT)
+        (
+            patient_id INTEGER NOT NULL REFERENCES patients(id),
+            session_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            audio_path TEXT,
+            pathology_id INTEGER,
+            doctor_diagnoses TEXT,
+            Letters INTEGER,
+            Phrase INTEGER)
         """
     )
-
     # Create pathologies Table
     cr.execute(
-        "CREATE TABLE IF NOT EXISTS pathologies (id INTEGER, description TEXT, name TEXT, type TEXT)"
+        """
+        CREATE TABLE IF NOT EXISTS pathologies 
+        (
+            id INTEGER,
+            description TEXT,
+            name TEXT,
+            type TEXT
+        );
+        """
     )
 
 
