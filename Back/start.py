@@ -19,9 +19,9 @@ if __name__ == '__main__':
 
     databaseHandler = DatabaseHandler()
     
-    #modelHandler = ModelHandler()
-    #modelHandler.loadModel()
-    #modelHandler.modelPredict(0)
+    modelHandler = ModelHandler()
+    modelHandler.loadModel()
+    modelHandler.modelPredict(0)
     
     windowManager = WindowManager()
     windowManager.AddWindow(mainWindow(windowManager), PagesNumbers.main)
