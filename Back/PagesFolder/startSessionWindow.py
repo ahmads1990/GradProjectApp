@@ -74,4 +74,6 @@ class SessionWindow(QDockWidget):
         newSession = Session(self.patientID, "", -1,"",self.part1_IsRecorded , self.part2_IsRecorded)
         
         sessionId = self.databaseHandler.insert_session(newSession)      
-        self.widgetManager.GoToResults()
+        newSession.id = sessionId
+
+        self.widgetManager.GoToResults(newSession)

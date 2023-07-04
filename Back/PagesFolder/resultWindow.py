@@ -6,9 +6,10 @@ import threading
 import keras
 
 class resultWindow(QDockWidget):
-    def __init__(self, windowManager, modelHandler):
+    def __init__(self, windowManager,databaseHandler, modelHandler):
         super(resultWindow, self).__init__()
         self.windowManager = windowManager
+        self.databaseHandler = databaseHandler
         self.modelHandler = modelHandler
 
         self.sessionDto = None
@@ -22,23 +23,50 @@ class resultWindow(QDockWidget):
             f"background-image: url(../Front/Images/Results.png);"
         )
         
+        self.clearAllFields()
         # Assign functions
         self.GoBack.clicked.connect(self.switchWindowToMain)
 
     def setSessionDto(self, sessionDto):
         self.sessionDto = sessionDto
-        
+        self.patientDto = self.databaseHandler.select_patient_by_id(self.sessionDto.patient_id)
+
     def sendToModelPredict(self):
         print("-------------------")
         print(self.modelHandler.model)
 
         self.result = self.modelHandler.modelPredict(self.sessionDto)
-        if(self.result == "pathology"):
-            self.background.setStyleSheet(
-            f"background-image: url(../Front/Images/ResultsPathology.png);")
-        else:
+        self.pathologyDto = self.databaseHandler.get_pathology_by_name(self.result)
+
+        if(self.result == "healthy"):
             self.background.setStyleSheet(
             f"background-image: url(../Front/Images/ResultsHealthy.png);")
+        else:
+            self.background.setStyleSheet(
+            f"background-image: url(../Front/Images/ResultsPathology.png);")
+
+        self.setAllFields()
+        self.databaseHandler.update_session_pathology_id(self.sessionDto.id, self.pathologyDto.id)
+
+    # clear all the fields
+    def clearAllFields(self):
+        self.txtEdit_ID.clear()
+        self.txtEdit_Name.clear()
+        self.txtEdit_Email.clear()
+        self.txtEdit_Phone.clear()
+        self.txtEdit_Age.clear() 
+        self.txtEdit_Gender.clear()
+        self.txtEdit_Diagnosis.clear()
+
+    # set all the fields
+    def setAllFields(self):
+        self.txtEdit_ID.setText(self.patientDto.id)
+        self.txtEdit_Name.setText(self.patientDto.name)
+        self.txtEdit_Email.setText(self.patientDto.email)
+        self.txtEdit_Phone.setText(self.patientDto.phone)
+        self.txtEdit_Age.setText(self.patientDto.age) 
+        self.txtEdit_Gender.setText(self.patientDto.gender)
+        self.txtEdit_Diagnosis.setText(self.pathologyDto.name)
 
     # change window
     def switchWindowToMain(self):

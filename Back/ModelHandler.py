@@ -22,14 +22,19 @@ class ModelHandler:
         self.isModelLoaded = True
         print("Keras model loaded successfully!")
         
-    def modelPredict(self, sessionID):     
+    def modelPredict(self, sessionDto):     
         if not self.isModelLoaded:
             print("Error: Model not loaded!")
             return
         
         # Perform prediction using the loaded model
-        print(f"Start prediction session ID : {sessionID}")
+        print(f"Start prediction session ID : {sessionDto.id}")
         print(self.model)
+        if sessionDto.phrase != "":
+            self.audioPath = sessionDto.audio_path + sessionDto.id +"-iau.wav"
+        else:
+            self.audioPath = sessionDto.audio_path + sessionDto.id +"-phrase.wav"
+
         result = test_model(self.model, self.audioPath)
         print(f"Result is: {result}")
         return result

@@ -45,7 +45,8 @@ def init(db, cr):
             pathology_id INTEGER,
             doctor_diagnoses TEXT,
             Letters INTEGER,
-            Phrase INTEGER)
+            Phrase INTEGER
+        );
         """
     )
     # Create pathologies Table

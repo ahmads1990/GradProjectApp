@@ -30,7 +30,7 @@ if __name__ == '__main__':
     windowManager.AddWindow(recordsPatientsWindow(windowManager,databaseHandler), PagesNumbers.recordsPatient)
     windowManager.AddWindow(recordsSessionWindow(windowManager,databaseHandler), PagesNumbers.recordsSession)
     windowManager.AddWindow(recordsPathologyWindow(windowManager,databaseHandler), PagesNumbers.recordsPathology)
-    windowManager.AddWindow(resultWindow(windowManager,modelHandler), PagesNumbers.results)
+    windowManager.AddWindow(resultWindow(windowManager,databaseHandler, modelHandler), PagesNumbers.results)
     windowManager.ShowWidget()
     
     sys.exit(app.exec_())
