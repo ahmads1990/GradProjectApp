@@ -8,12 +8,13 @@ class DatabaseHandler():
         init(self.db, getCursor(self.db))
 
     # -----------------------------------------
-    # # Insert Data In Tables
+    # Insert Data In Tables
     # -----------------------------------------
 
     # patient
     def insert_patient(self, patient):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"""
                     INSERT INTO patients(id, name, age, gender, phone_number, email)
                     VALUES(
@@ -22,13 +23,14 @@ class DatabaseHandler():
                         {patient.age},
                         '{patient.gender}',
                         '{patient.phone}',
-                        '{patient.email}')")
+                        '{patient.email}')
                     """)
-        save(self.db)
+        save(db)
 
     # session
     def insert_session(self, session):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(
         f"""
         INSERT INTO sessions (patient_id, audio_path, pathology_id, doctor_diagnoses, Letters, Phrase)
@@ -41,16 +43,17 @@ class DatabaseHandler():
             {int(session.phrase)}
         );
         """)
-        save(self.db)
+        save(db)
         
         last_inserted_id = cr.lastrowid  # Retrieve the newly created primary key
         return last_inserted_id
 
     # pathology
     def insert_pathology(self, id, description, name, type):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"INSERT INTO pathologies VALUES({id}, '{description}', '{name}', '{type}')")
-        save(self.db)
+        save(db)
 
     # -----------------------------------------
     # Select All data
@@ -107,6 +110,22 @@ class DatabaseHandler():
             sessions.append(session)
 
         return sessions
+    def select_last_session_id(self):
+        cr = getCursor(self.db)
+        # Execute the query to get the last session ID
+        query = "SELECT session_id FROM sessions ORDER BY session_id DESC LIMIT 1;"
+        cr.execute(query)
+        # Fetch the result
+        result = cr.fetchone()
+        # Print the last session ID
+        if result:
+            last_session_id = result[0]
+            print("Last Session ID:", last_session_id)
+            return last_session_id
+        else:
+            print("No sessions found")
+            return -1
+            
     # pathology 
     def get_pathology_by_name(self, name):
         cr = getCursor(self.db)
@@ -114,7 +133,8 @@ class DatabaseHandler():
         cr.execute("SELECT * FROM pathologies WHERE name = ?", (name,))
         # Fetch the result
         result = cr.fetchone()
-
+        print(result)
+        print(name  )
         # If no result found, return None
         if result is None:
             return None

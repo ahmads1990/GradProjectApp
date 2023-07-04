@@ -78,9 +78,13 @@ class registerWindow(QDockWidget):
         
         # database
         newPatient = Patient(patientID,name,email,phone,age, gender)
+        newPatient.print_attributes()
         try:
             self.databaseHandler.insert_patient(newPatient)
-        except:
+        except Exception as e:
+            # Handle the exception and print the error message
+            print("An error occurred:", str(e))
+            print(self.databaseHandler)
             # update instead
             print("ID repeated")
             self.msg_Error.setText("ID repeated")
@@ -88,7 +92,6 @@ class registerWindow(QDockWidget):
         
         # all good then start recording
         self.msg_Error.clear()
-        self.windowManager.ReturnStartSession(patientID)
-        self.windowManager.GoToStartSession()
-        
+        self.windowManager.GoToStartSession(patientID)
+        print(patientID)
         print("Start recording")

@@ -6,6 +6,10 @@ class Patient:
         self.phone =  phone
         self.age = age  
         self.gender =gender
+    
+    def print_attributes(self):
+        for attribute, value in self.__dict__.items():
+            print(f"{attribute}: {value}")
 class Session:
     def __init__(self, patient_id, audio_path, pathology_id, doctor_diagnoses, letters, phrase, id=0):
         self.id = id
@@ -15,9 +19,15 @@ class Session:
         self.doctor_diagnoses = doctor_diagnoses
         self.letters = letters
         self.phrase = phrase
+    def print_attributes(self):
+        for attribute, value in self.__dict__.items():
+            print(f"{attribute}: {value}")
 class Pathology:
     def __init__(self, id, description, name, type):
         self.id = id
         self.description = description
         self.name = name
         self.type = type
+    def print_attributes(self):
+        for attribute, value in self.__dict__.items():
+            print(f"{attribute}: {value}")

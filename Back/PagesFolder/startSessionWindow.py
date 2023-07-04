@@ -14,6 +14,7 @@ class SessionWindow(QDockWidget):
 
         # data
         self.patientID = 0
+        self.audioPath = 'Audio/'
         # record 1  
         self.part1_IsRecorded = False
         self.part1_Type = "iau"  
@@ -34,8 +35,9 @@ class SessionWindow(QDockWidget):
 
     def setPatientID (self, patientID = 0):
         self.patientID = patientID
-        self.part1_Type_Path = str(self.patientID)+"-"+self.part1_Type
-        self.part2_Type_Path = str(self.patientID)+"-"+self.part2_Type
+        self.sessionID = self.databaseHandler.select_last_session_id() + 1
+        self.part1_Type_Path = str(self.sessionID)+"-"+self.part1_Type
+        self.part2_Type_Path = str(self.sessionID)+"-"+self.part2_Type
         
     # Start recording part 1
     def recordPart1(self):
@@ -71,9 +73,10 @@ class SessionWindow(QDockWidget):
 
     def endRecordSession(self):
         # finish recording
-        newSession = Session(self.patientID, "", -1,"",self.part1_IsRecorded , self.part2_IsRecorded)
+        newSession = Session(self.patientID, self.audioPath, -1,"",self.part1_IsRecorded , self.part2_IsRecorded)
         
         sessionId = self.databaseHandler.insert_session(newSession)      
         newSession.id = sessionId
 
+        newSession.print_attributes()
         self.widgetManager.GoToResults(newSession)

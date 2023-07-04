@@ -36,8 +36,13 @@ class resultWindow(QDockWidget):
         print(self.modelHandler.model)
 
         self.result = self.modelHandler.modelPredict(self.sessionDto)
+        self.result = self.result.lower()
+        
         self.pathologyDto = self.databaseHandler.get_pathology_by_name(self.result)
-
+        print(self.pathologyDto)
+        print(self.result)
+        self.pathologyDto.print_attributes()
+        
         if(self.result == "healthy"):
             self.background.setStyleSheet(
             f"background-image: url(../Front/Images/ResultsHealthy.png);")
@@ -60,14 +65,14 @@ class resultWindow(QDockWidget):
 
     # set all the fields
     def setAllFields(self):
-        self.txtEdit_ID.setText(self.patientDto.id)
+        self.txtEdit_ID.setText(str(self.patientDto.id))
         self.txtEdit_Name.setText(self.patientDto.name)
         self.txtEdit_Email.setText(self.patientDto.email)
-        self.txtEdit_Phone.setText(self.patientDto.phone)
-        self.txtEdit_Age.setText(self.patientDto.age) 
+        self.txtEdit_Phone.setText(str(self.patientDto.phone))
+        self.txtEdit_Age.setText(str(self.patientDto.age)) 
         self.txtEdit_Gender.setText(self.patientDto.gender)
         self.txtEdit_Diagnosis.setText(self.pathologyDto.name)
 
     # change window
     def switchWindowToMain(self):
-        self.widgetManager.GoToMain()
+        self.windowManager.GoToMain()

@@ -40,14 +40,11 @@ class WindowManager():
         self.widgetManager.widget(index).clearSession()
         self.widgetManager.setCurrentIndex(index)
     
-    def GoToStartSession(self):
-        index = self.dict[PagesNumbers.session]
-        self.widgetManager.setCurrentIndex(index)
-        
-    def ReturnStartSession(self, patientID):
+    def GoToStartSession(self, patientID):
         index = self.dict[PagesNumbers.session]
         window = self.widgetManager.widget(index)
         window.setPatientID(patientID)
+        self.widgetManager.setCurrentIndex(index)
     
     def GoToResults(self, sessionDto): 
         index = self.dict[PagesNumbers.results]       

@@ -1,13 +1,15 @@
 import sqlite3
+import os
 
 def connection():
     # Create database and connect
-    import os
-    print(os.getcwd())
+    #print(os.getcwd())
     db = sqlite3.connect("Database/GP.db")
     return db
 
 def getCursor(db):
+    #db = sqlite3.connect("Database/GP.db")
+    print(db)
     return db.cursor()
 
 # Save and close data
@@ -16,10 +18,13 @@ def save_close(db):
     db.close()
 
 def save(db):
-    return db.commit()
+    #return db.commit()
+    db.commit()
+    db.close()
 
 def init(db, cr):
     # Create patients Table
+    db = sqlite3.connect("Database/GP.db")
     db.execute('PRAGMA foreign_keys = ON')
     cr.execute(
         """
@@ -54,7 +59,7 @@ def init(db, cr):
         """
         CREATE TABLE IF NOT EXISTS pathologies 
         (
-            id INTEGER,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             description TEXT,
             name TEXT,
             type TEXT

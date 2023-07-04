@@ -31,9 +31,9 @@ class ModelHandler:
         print(f"Start prediction session ID : {sessionDto.id}")
         print(self.model)
         if sessionDto.phrase != "":
-            self.audioPath = sessionDto.audio_path + sessionDto.id +"-iau.wav"
+            self.audioPath = sessionDto.audio_path + str(sessionDto.id) +"-iau.wav"
         else:
-            self.audioPath = sessionDto.audio_path + sessionDto.id +"-phrase.wav"
+            self.audioPath = sessionDto.audio_path + str(sessionDto.id) +"-phrase.wav"
 
         result = test_model(self.model, self.audioPath)
         print(f"Result is: {result}")
