@@ -59,21 +59,27 @@ class DatabaseHandler():
     # Select All data
     # -----------------------------------------
     def all_data_patients(self):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"SELECT * FROM patients")
         data = cr.fetchall()
+        db.close()
         return data
 
     def all_data_sessions(self):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"SELECT * FROM sessions")
         data = cr.fetchall()
+        db.close()
         return data
 
     def all_data_pathologies(self):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"SELECT * FROM pathologies")
         data = cr.fetchall()
+        db.close()
         return data
 
     # -----------------------------------------
@@ -82,12 +88,14 @@ class DatabaseHandler():
 
     # patient
     def select_patient_by_id(self, patient_id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         # Execute the SELECT query
         cr.execute("SELECT * FROM patients WHERE id = ?", (patient_id,))    
 
         # Fetch the result
         result = cr.fetchone()
+        db.close()
         # Map the result to Patient DTO object
         if result:
             patient = Patient(result[0], result[1], result[5], result[4], result[2], result[3])
@@ -97,12 +105,14 @@ class DatabaseHandler():
         
     # sessions
     def select_sessions_by_patient_id(self, patient_id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         # Execute the SELECT query
         cr.execute("SELECT * FROM sessions WHERE patient_id = ?", (patient_id,))
 
         # Fetch all the results
         results = cr.fetchall()
+        db.close()
         # Map the results to SessionDto objects
         sessions = []
         for result in results:
@@ -111,12 +121,14 @@ class DatabaseHandler():
 
         return sessions
     def select_last_session_id(self):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         # Execute the query to get the last session ID
         query = "SELECT session_id FROM sessions ORDER BY session_id DESC LIMIT 1;"
         cr.execute(query)
         # Fetch the result
         result = cr.fetchone()
+        db.close()
         # Print the last session ID
         if result:
             last_session_id = result[0]
@@ -128,11 +140,13 @@ class DatabaseHandler():
             
     # pathology 
     def get_pathology_by_name(self, name):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         # Execute the SELECT query
         cr.execute("SELECT * FROM pathologies WHERE name = ?", (name,))
         # Fetch the result
         result = cr.fetchone()
+        db.close()
         print(result)
         print(name  )
         # If no result found, return None
@@ -147,17 +161,20 @@ class DatabaseHandler():
     # Delete by ID
     # -----------------------------------------
     def delete_patient(self, id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"DELETE FROM patients WHERE id={id}")
         save(self.db)
 
     def delete_session(self, session_id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"DELETE FROM sessions WHERE session_id={session_id}")
         save(self.db)
 
     def delete_pathology(self, id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         cr.execute(f"DELETE FROM pathologies WHERE id={id}")
         save(self.db)
 
@@ -166,7 +183,8 @@ class DatabaseHandler():
     # -----------------------------------------
 
     def update_session_pathology_id(self,session_id, pathology_id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         # Execute the UPDATE query
         cr.execute("UPDATE sessions SET pathology_id = ? WHERE session_id = ?", (pathology_id, session_id))
 
@@ -174,7 +192,8 @@ class DatabaseHandler():
         save(self.db)
 
     def phrases_letters(self, session_id):
-        cr = getCursor(self.db)
+        db = connection()
+        cr = getCursor(db)
         query = f"UPDATE sessions SET Letters='DONE', Phrase='DONE' WHERE session_id={session_id}"
         cr.execute(query)
         save(self.db)
