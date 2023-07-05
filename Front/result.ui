@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/newPrefix/Images/ResultsHealthy.png);</string>
+   <string notr="true"/>
   </property>
   <property name="windowTitle">
    <string>DockWidget</string>

@@ -82,6 +82,32 @@ class DatabaseHandler():
         db.close()
         return data
 
+    def fetch_pathologies(self):
+        # Connect to the SQLite database
+        db = connection()
+
+        # Create a cursor object to execute SQL commands
+        cursor = getCursor(db)
+
+        # Select all entries from the "pathologies" table
+        cursor.execute("SELECT id, name, description FROM pathologies")
+        rows = cursor.fetchall()
+
+        # Create a dictionary to store the results
+        pathologies_dict = {}
+
+        # Process the rows and populate the dictionary
+        for row in rows:
+            pathology_id, name, description = row
+            pathologies_dict[pathology_id] = [name, description]
+
+        # Close the cursor and the database connection
+        cursor.close()
+        db.close()
+
+        return pathologies_dict
+
+
     # -----------------------------------------
     # Select by ID
     # -----------------------------------------

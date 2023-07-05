@@ -10,9 +10,8 @@ class recordsPathologyWindow(QDockWidget):
         self.windowManager = widgetManager   
         self.databaseHandler = databaseHandler
         
-        self.document = {0: ['Healthy', 'They are fortunate to have healthy vocal cords, which allow their voice to effortlessly connect and resonate with clarity and strength. They value their vocal health and confidently express their emotions, captivating audiences with ease. Their smooth and soothing tone leaves a lasting impression, as they wholeheartedly embrace the joy of vocal expression and share their talents with the world.'],
-                        1: ['Rekurrensparese', 'Vocal cord paralysis can be caused by a virus or inflammatory disease, thyroid cancer or other tumors, or it can be a side effect of a neurologic disease'],
-                        2: ['Psychogene Dysphonia', 'A psychological trauma or other emotional issue may cause psychogenic voice disorders. In some cases, adolescent males or females resist the eventual lowering of the voice that comes with adulthood, causing a voice problem.']}
+        self.document = databaseHandler.fetch_pathologies()
+        
         # load the ui file 
         uic.loadUi("../Front/recordsPathology.ui", self)
         self.pathologyLabel.setReadOnly(True)
@@ -54,7 +53,7 @@ class recordsPathologyWindow(QDockWidget):
 
         # Create and add multiple buttons to the layout
         buttons = []
-        for i in range(3):
+        for i in range(1, len(self.document) + 1):
             button = self.returnButton(f"{self.document[i][0]}")
             buttons.append(button)
             self.layout.addWidget(button)
