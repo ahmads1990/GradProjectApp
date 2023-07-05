@@ -36,6 +36,7 @@ class SessionWindow(QDockWidget):
     def setPatientID (self, patientID = 0):
         self.patientID = patientID
         self.sessionID = self.databaseHandler.select_last_session_id() + 1
+        print("idddddddddddd         " + str(self.sessionID))
         self.part1_Type_Path = str(self.sessionID)+"-"+self.part1_Type
         self.part2_Type_Path = str(self.sessionID)+"-"+self.part2_Type
         

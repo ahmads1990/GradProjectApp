@@ -7,7 +7,7 @@ from PyQt5.QtGui import QFont
 class recordsPathologyWindow(QDockWidget):
     def __init__(self, widgetManager, databaseHandler):
         super(recordsPathologyWindow, self).__init__()
-        self.widgetManager = widgetManager   
+        self.windowManager = widgetManager   
         self.databaseHandler = databaseHandler
         
         self.document = {0: ['Healthy', 'They are fortunate to have healthy vocal cords, which allow their voice to effortlessly connect and resonate with clarity and strength. They value their vocal health and confidently express their emotions, captivating audiences with ease. Their smooth and soothing tone leaves a lasting impression, as they wholeheartedly embrace the joy of vocal expression and share their talents with the world.'],
@@ -71,7 +71,7 @@ class recordsPathologyWindow(QDockWidget):
     
     # change window
     def switchWindowToMain(self):
-        self.widgetManager.GoToMain()
+        self.windowManager.GoToMain()
     
     def switchWindowToRecordsSession(self):
         self.windowManager.GoToRecordsSession()
