@@ -25,7 +25,7 @@ class recordsPathologyWindow(QDockWidget):
         self.btn_main.clicked.connect(self.switchWindowToMain)
         self.btn_records_session.clicked.connect(self.switchWindowToRecordsSession)
         self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
-    
+        
     def returnButton(self, name):
         pushButton = QPushButton()
         pushButton.setObjectName(name)
