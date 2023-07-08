@@ -23,7 +23,7 @@ class recordsSessionWindow(QDockWidget):
         # Side
         self.btn_main.clicked.connect(self.switchWindowToMain)
         self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
-        self.btn_records_patient.clicked.connect(self.switchWindowToRecordsPatient)
+        self.btn_records_pathology.clicked.connect(self.switchWindowToRecordsPathology)
     
     def load_data(self):
         data = self.databaseHandler.all_data_sessions()
@@ -52,5 +52,5 @@ class recordsSessionWindow(QDockWidget):
         self.widgetManager.GoToRecordsPatients()
         
     def switchWindowToRecordsPathology(self):
-        self.windowManager.GoToRecordsPathology()
+        self.widgetManager.GoToRecordsPathology()
     

@@ -36,9 +36,9 @@ class recordsPatientsWindow(QDockWidget):
             self.tableWidget.setItem(row , 0 , QTableWidgetItem(id))
             self.tableWidget.setItem(row , 1 , QTableWidgetItem(patient[1]))
             self.tableWidget.setItem(row , 2 , QTableWidgetItem(age))
-            self.tableWidget.setItem(row , 3 , QTableWidgetItem(patient[2]))
-            self.tableWidget.setItem(row , 4 , QTableWidgetItem(patient[3]))
-            self.tableWidget.setItem(row , 5 , QTableWidgetItem(patient[4]))
+            self.tableWidget.setItem(row , 3 , QTableWidgetItem(patient[3]))
+            self.tableWidget.setItem(row , 4 , QTableWidgetItem(patient[4]))
+            self.tableWidget.setItem(row , 5 , QTableWidgetItem(patient[5]))
             row=row+1
         
     # change window
