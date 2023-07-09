@@ -35,7 +35,7 @@ class recordsPathologyWindow(QDockWidget):
                                 border-radius: 10px;
                                 text-align:center;
                                 color:rgb(69, 77, 179);
-                                font-size: 14px;
+                                font-size: 12px;
                                 font-weight: bold;
                                 Height:40px""")
         pushButton.setText (name)
